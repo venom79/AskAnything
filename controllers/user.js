@@ -8,7 +8,7 @@ export const register = async (req,res,next)=>{
         const {name,email,password} = req.body;
 
         let user = await User.findOne({email});
-        if(user) return res.redirect("login");
+        if(user) return next(new ErrorHandler("User Already Exist",409));
         const hashedPassword = await bcrypt.hash(password,10);
         req.user = await User.create({
             name,
