@@ -50,3 +50,15 @@ export const logout = (req,res)=>{
         message:"logged out successfully"
     })
 }
+
+export const getProfile = (req,res,next)=>{
+    const user = req.user;
+
+    if(!user) return next(new ErrorHandler("Not Logged In",404));
+    const {name,email} = user;
+    res.status(200).json({
+        success:true,
+        name,
+        email,
+    })
+}

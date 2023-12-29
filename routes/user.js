@@ -1,5 +1,6 @@
 import express from "express";
-import { login, logout, register } from "../controllers/user.js";
+import { isAuthenticated } from "../middlewares/auth.js";
+import { getProfile, login, logout, register } from "../controllers/user.js";
 
 const router = express.Router();
 
@@ -10,6 +11,8 @@ router.get("/login",(req,res)=>{
 router.get("/register",(req,res)=>{
     res.send("register");
 })
+
+router.get("/profile",isAuthenticated,getProfile)
 
 router.get("/logout",logout)
 
